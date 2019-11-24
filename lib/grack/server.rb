@@ -44,8 +44,12 @@ module Grack
       return render_not_found if !cmd
 
       @dir = get_git_dir(path)
+      if !@dir
+        logger = Rails.logger
+        logger.info "GIT response - 404 - dir not exist - #{@dir}"
+      end
       return render_not_found if !@dir
-
+  
       Dir.chdir(@dir) do
         self.method(cmd).call()
       end
