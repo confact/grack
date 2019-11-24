@@ -15,6 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Grack::VERSION
 
-  gem.add_dependency("rack", "~> 1.6")
+  gem.add_dependency("rack", "~> 2.0")
   gem.add_development_dependency("mocha", "~> 0.11")
 end
