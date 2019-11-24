@@ -62,6 +62,8 @@ module Grack
       @res = Rack::Response.new
       @res.status = 200
       @res["Content-Type"] = "application/x-git-%s-result" % @rpc
+      logger = Rails.logger
+      logger.info "GIT response - 200"
       @res.finish do
         command = git_command("#{@rpc} --stateless-rpc #{@dir}")
         IO.popen(command, File::RDWR) do |pipe|
@@ -254,6 +256,8 @@ module Grack
     PLAIN_TYPE = {"Content-Type" => "text/plain"}
 
     def render_method_not_allowed
+      logger = Rails.logger
+      logger.info "GIT response - not allowed"
       if @env['SERVER_PROTOCOL'] == "HTTP/1.1"
         [405, PLAIN_TYPE, ["Method Not Allowed"]]
       else
@@ -262,6 +266,8 @@ module Grack
     end
 
     def render_not_found
+      logger = Rails.logger
+      logger.info "GIT response - 404"
       [404, PLAIN_TYPE, ["Not Found"]]
     end
 
